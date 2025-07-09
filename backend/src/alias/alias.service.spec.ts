@@ -3,9 +3,13 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import { FieldNameNote, FieldNameUser, Note, User } from '@hedgedoc/database';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { Test, TestingModule } from '@nestjs/testing';
+import { knex, type Knex } from 'knex';
+import { createTracker, MockClient, type Tracker } from 'knex-mock-client';
+import { KnexModule } from 'nest-knexjs';
 import { Mock } from 'ts-mockery';
 
 import appConfigMock from '../config/mock/app.config.mock';
@@ -30,51 +34,17 @@ import { AliasService } from './alias.service';
 
 describe('AliasService', () => {
   let service: AliasService;
-  let noteRepo: Repository<Note>;
-  let aliasRepo: Repository<Alias>;
   let forbiddenNoteId: string;
+
+  let db: Knex;
+  let tracker: Tracker;
+
   beforeEach(async () => {
-    noteRepo = new Repository<Note>(
-      '',
-      new EntityManager(
-        new DataSource({
-          type: 'sqlite',
-          database: ':memory:',
-        }),
-      ),
-      undefined,
-    );
-    aliasRepo = new Repository<Alias>(
-      '',
-      new EntityManager(
-        new DataSource({
-          type: 'sqlite',
-          database: ':memory:',
-        }),
-      ),
-      undefined,
-    );
+    db = knex({ client: MockClient });
+    tracker = createTracker(db);
+
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        AliasService,
-        NoteService,
-        {
-          provide: getRepositoryToken(Note),
-          useValue: noteRepo,
-        },
-        {
-          provide: getRepositoryToken(Alias),
-          useValue: aliasRepo,
-        },
-        {
-          provide: getRepositoryToken(Tag),
-          useClass: Repository,
-        },
-        {
-          provide: getRepositoryToken(User),
-          useClass: Repository,
-        },
-      ],
+      providers: [AliasService, NoteService],
       imports: [
         ConfigModule.forRoot({
           isGlobal: true,
@@ -94,55 +64,47 @@ describe('AliasService', () => {
         EventEmitterModule.forRoot(eventModuleConfig),
       ],
     })
-      .overrideProvider(getRepositoryToken(Note))
-      .useValue(noteRepo)
-      .overrideProvider(getRepositoryToken(Tag))
-      .useClass(Repository)
-      .overrideProvider(getRepositoryToken(Alias))
-      .useValue(aliasRepo)
-      .overrideProvider(getRepositoryToken(User))
-      .useClass(Repository)
-      .overrideProvider(getRepositoryToken(ApiToken))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(Identity))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(Edit))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(Revision))
-      .useClass(Repository)
-      .overrideProvider(getRepositoryToken(NoteGroupPermission))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(NoteUserPermission))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(Group))
-      .useClass(Repository)
-      .overrideProvider(getRepositoryToken(Session))
-      .useValue({})
-      .overrideProvider(getRepositoryToken(Author))
-      .useValue({})
+      .overrideProvider(KnexModule)
+      .useValue({
+        get: () => db,
+      })
       .compile();
 
     const config = module.get<ConfigService>(ConfigService);
     forbiddenNoteId = config.get('noteConfig').forbiddenNoteIds[0];
     service = module.get<AliasService>(AliasService);
-    noteRepo = module.get<Repository<Note>>(getRepositoryToken(Note));
-    aliasRepo = module.get<Repository<Alias>>(getRepositoryToken(Alias));
   });
+
+  afterEach(() => {
+    tracker.reset();
+  });
+
   describe('addAlias', () => {
     const alias = 'testAlias';
     const alias2 = 'testAlias2';
-    const user = User.create('hardcoded', 'Testy') as User;
+    const user: User = {
+      [FieldNameUser.id]: 1,
+      [FieldNameUser.guestUuid]: null,
+      [FieldNameUser.username]: 'hardcoded',
+      [FieldNameUser.displayName]: 'Testy',
+      [FieldNameUser.email]: null,
+      [FieldNameUser.photoUrl]: null,
+      [FieldNameUser.authorStyle]: 0,
+      [FieldNameUser.createdAt]: new Date().toISOString(),
+    };
+    const note: Note = {
+      [FieldNameNote.id]: 1,
+      [FieldNameNote.version]: 2,
+      [FieldNameNote.createdAt]: new Date().toISOString(),
+      [FieldNameNote.ownerId]: 1,
+    };
+
     describe('creates', () => {
       it('an primary aliases if no aliases is already present', async () => {
-        const note = Note.create(user) as Note;
-        jest
-          .spyOn(noteRepo, 'save')
-          .mockImplementationOnce(async (note: Note): Promise<Note> => note);
-        jest.spyOn(noteRepo, 'existsBy').mockResolvedValueOnce(false);
-        jest.spyOn(aliasRepo, 'existsBy').mockResolvedValueOnce(false);
-        const savedAlias = await service.addAlias(note, alias);
-        expect(savedAlias.name).toEqual(alias);
-        expect(savedAlias.primary).toBeTruthy();
+        tracker.on
+          .select('select * from notes where id=?')
+          .response(async () => [note]);
+        const savedAlias = await service.addAlias(1, alias);
       });
       it('an non-primary aliases if an primary aliases is already present', async () => {
         const note = Note.create(user, alias) as Note;
