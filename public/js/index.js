@@ -434,17 +434,17 @@ const supportExtraTags = [
 ]
 const statusType = {
   connected: {
-    msg: 'CONNECTED',
+    msg: '',
     label: 'label-warning',
     fa: 'fa-wifi'
   },
   online: {
-    msg: 'ONLINE',
+    msg: '',
     label: 'label-primary',
     fa: 'fa-users'
   },
   offline: {
-    msg: 'OFFLINE',
+    msg: '',
     label: 'label-danger',
     fa: 'fa-plug'
   }
