@@ -1,0 +1,217 @@
+/* =============================================================================
+   FONT IMPORTS
+   ============================================================================= */
+
+/* Local ShinGo Fonts - All weights */
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-ExLight');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Light');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Regular');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Medium');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-DeBold');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Bold');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Heavy');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'ShinGo';
+    src: local('ShinGoPr5-Ultra');
+    font-weight: 900;
+}
+
+/* =============================================================================
+   DARK THEME / NIGHT MODE
+   ============================================================================= */
+
+.night .ui-content {
+    background: #1E1E1E;
+}
+
+.night .ui-view-area,
+.night .navbar {
+    background: #1E1E1E;
+    border: none;
+}
+
+/* =============================================================================
+   TYPOGRAPHY
+   ============================================================================= */
+
+/* Base font for markdown content */
+.markdown-body {
+    font-family: 'ShinGo', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+/* Headings */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+    padding-bottom: 0 !important;
+    font-weight: 700 !important;
+}
+
+.markdown-body h1 {
+    color: #856FA6 !important;
+}
+
+.markdown-body h3 {
+    font-size: 1.15em;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+    border: none;
+}
+
+/* =============================================================================
+   MARKDOWN ELEMENTS
+   ============================================================================= */
+
+.markdown-body blockquote {
+    border-left: 0.25em solid #856FA6;
+    background: #856fa617;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.markdown-body blockquote p {
+    width: fit-content;
+}
+
+.markdown-body hr {
+    height: 0.1em;
+    margin: 26px 0 24px 0;
+    background-color: #ffffff1a;
+}
+
+.night .markdown-body code, .night .markdown-body tt {
+    background-color: #171717;
+    border: 1px solid #2f2f2f;
+    padding: 5px;
+}
+
+/* =============================================================================
+   HUD
+   ============================================================================= */
+
+#ui-toc-affix {
+    display:none;
+}
+
+.cm-s-one-dark.CodeMirror, .cm-s-one-dark .CodeMirror-scroll {
+    background-color: #171717;
+}
+
+
+.cm-s-one-dark .CodeMirror-gutters {
+    background-color: #171717;
+}
+
+.night .ui-edit-area .ui-resizable-handle.ui-resizable-e {
+    background: #171717;
+    box-shadow: none;
+}
+
+.night .ui-edit-area .ui-resizable-handle.ui-resizable-e:hover {
+    background: #404040;
+}
+
+.ui-edit-area .ui-resizable-handle.ui-resizable-e {
+    width: 4px;
+    right: -4px;
+}
+
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div {
+    background: #353535;
+    border: none;
+}
+
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div:hover {
+    background: #404040;
+}
+
+.CodeMirror-overlayscroll-vertical {
+    width: 7px;
+}
+
+.night .markdown-body table {
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: fit-content;
+    table-layout: auto;
+}
+
+.night .markdown-body table th,
+.night .markdown-body table td {
+    border: none;
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #333;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+.night .markdown-body table th:last-child,
+.night .markdown-body table td:last-child {
+    border-right: none;
+}
+
+.night .markdown-body table tr:last-child td {
+    border-bottom: none;
+}
+
+.night .markdown-body table tr {
+    background-color: transparent;
+}
+
+.status-bar .dropdown-menu > li > a:focus, .status-bar .dropdown-menu > li > a:hover {
+    background-color: white
+}
+
+#ui-toc-affix {
+    display: none !important;
+}
+
+.ui-toc {
+    display: block !important;
+    bottom: 5px !important;
+    right: 10px !important;
+}
