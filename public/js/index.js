@@ -657,16 +657,20 @@ $(document).ready(function () {
       })
   }
 
-  if (Cookies.get('nightMode') !== undefined) {
-    store.set('nightMode', Cookies.get('nightMode') === 'true')
-    Cookies.remove('nightMode')
-  }
+  // if (Cookies.get('nightMode') !== undefined) {
+  //   store.set('nightMode', Cookies.get('nightMode') === 'true')
+  //   Cookies.remove('nightMode')
+  // }
 
-  // Re-enable nightmode
-  if (store.get('nightMode') === true) {
-    $body.addClass('night')
-    ui.toolbar.night.addClass('active')
-  }
+  // // Re-enable nightmode
+  // if (store.get('nightMode') === true) {
+  //   $body.addClass('night')
+  //   ui.toolbar.night.addClass('active')
+  // }
+
+  store.set('nightMode', true)
+  $body.addClass('night')
+  ui.toolbar.night.addClass('active')
 
   // showup
   $().showUp('.navbar', {
@@ -2047,9 +2051,9 @@ ui.toolbar.both.click(function () {
   changeMode(modeType.both)
 })
 
-ui.toolbar.night.click(function () {
-  toggleNightMode()
-})
+// ui.toolbar.night.click(function () {
+//   toggleNightMode()
+// })
 // permission
 // freely
 ui.infobar.permission.freely.click(function () {
@@ -2083,13 +2087,13 @@ $('.ui-delete-modal-confirm').click(function () {
   socket.emit('delete')
 })
 
-function toggleNightMode () {
-  const $body = $('body')
-  const isActive = store.get('nightMode') === true
-  $body.toggleClass('night', !isActive)
-  ui.toolbar.night.toggleClass('active', !isActive)
-  store.set('nightMode', !isActive)
-}
+// function toggleNightMode () {
+//   const $body = $('body')
+//   const isActive = store.get('nightMode') === true
+//   $body.toggleClass('night', !isActive)
+//   ui.toolbar.night.toggleClass('active', !isActive)
+//   store.set('nightMode', !isActive)
+// }
 
 function emitPermission (_permission) {
   if (_permission !== permission) {

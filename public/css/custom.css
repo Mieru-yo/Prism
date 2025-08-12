@@ -84,6 +84,11 @@ body {
    NIGHT MODE / DARK THEME
    ============================================================================= */
 
+div.btn-group:nth-child(2) {
+    display: none !important;
+}
+
+
 .night .ui-content,
 .night .ui-view-area,
 .night .navbar {
