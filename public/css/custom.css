@@ -218,32 +218,32 @@ html body div#doc.container.markdown-body {
 
 h1 {
     color: var(--h1-color) !important;
-    font-size: var(--h1-size);
+    font-size: var(--h1-size) !important;
 }
 
 h2 {
     color: var(--h2-color) !important;
-    font-size: var(--h2-size);
+    font-size: var(--h2-size) !important;
 }
 
 h3 {
     color: var(--h3-color) !important;
-    font-size: var(--h3-size);
+    font-size: var(--h3-size) !important;
 }
 
 h4 {
     color: var(--h4-color) !important;
-    font-size: var(--h4-size);
+    font-size: var(--h4-size) !important;
 }
 
 h5 {
     color: var(--h5-color) !important;
-    font-size: var(--h5-size);
+    font-size: var(--h5-size) !important;
 }
 
 h6 {
     color: var(--h6-color) !important;
-    font-size: var(--h6-size);
+    font-size: var(--h6-size) !important;
 }
 
 /* Bold and Italic Text */
