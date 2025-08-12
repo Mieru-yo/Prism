@@ -1,5 +1,5 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
-/* global Cookies, moment, serverurl,
+/* global moment, serverurl,
    key, Dropbox, Visibility */
 
 import TurndownService from 'turndown'
