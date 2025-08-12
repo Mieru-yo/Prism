@@ -12,6 +12,8 @@
     --border-light: #464646;
     --border-lighter: #2f2f2f;
     --text-primary: white;
+    --text-muted: #575757;
+    --text-muted-hover: #acacac;
     --hover-bg: #353535;
     --scrollbar-bg: #353535;
     --scrollbar-hover: #404040;
@@ -109,7 +111,6 @@ div.btn-group:nth-child(2) {
     display: none !important;
 }
 
-
 .night .ui-content,
 .night .ui-view-area,
 .night .navbar {
@@ -179,6 +180,12 @@ html body div#doc.container.markdown-body {
     background-color: var(--bg-tertiary) !important;
     border: 1px solid var(--border-lighter) !important;
     padding: 5px !important;
+}
+
+.night .markdown-body pre code,
+.night .markdown-body pre tt {
+    background: none !important;
+    border: none !important;
 }
 
 /* Tables */
@@ -258,7 +265,6 @@ h6 {
     color: var(--text-primary) !important;
 }
 
-
 /* =============================================================================
    CODE EDITOR (CODEMIRROR)
    ============================================================================= */
@@ -291,7 +297,7 @@ h6 {
 
 /* Resize Handles */
 .night .ui-edit-area .ui-resizable-handle.ui-resizable-e {
-    background: var(--bg-tertiary) !important;
+    background: var(--bg-dark) !important;
     box-shadow: none !important;
 }
 
@@ -316,6 +322,23 @@ h6 {
 }
 
 /* =============================================================================
+   TOOLBAR & NAVIGATION
+   ============================================================================= */
+
+body.night .toolbar {
+    border: none !important;
+}
+
+body.night .toolbar > .btn-toolbar > .btn-group > .btn {
+    color: var(--text-muted) !important;
+    background: none !important;
+}
+
+body.night .toolbar > .btn-toolbar > .btn-group > .btn:hover {
+    color: var(--text-muted-hover) !important;
+}
+
+/* =============================================================================
    FORM ELEMENTS & CONTROLS
    ============================================================================= */
 
@@ -330,6 +353,13 @@ h6 {
     background: var(--bg-secondary) !important;
     border: 1px solid var(--border-dark) !important;
     color: var(--text-primary) !important;
+}
+
+.night .btn.focus,
+.night .btn:focus,
+.night .btn:hover,
+.night .close {
+    background: none !important;
 }
 
 /* Form Controls */
@@ -347,6 +377,28 @@ h6 {
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
     background-color: var(--primary-color) !important;
+}
+
+/* =============================================================================
+   MODAL & PANEL ELEMENTS
+   ============================================================================= */
+
+.night .modal-content,
+.night .panel,
+.night .panel-heading {
+    background: var(--bg-dark) !important;
+}
+
+.modal-header,
+.panel-default,
+.panel-default > .panel-heading,
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    border: none !important;
 }
 
 /* =============================================================================
