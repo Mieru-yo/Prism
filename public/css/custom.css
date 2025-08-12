@@ -96,10 +96,9 @@
    BASE STYLES
    ============================================================================= */
 
-html,
-body,
-body.night {
+html, body, body.night {
     background-color: var(--bg-dark) !important;
+    background: var(--bg-dark) !important;
 }
 
 /* =============================================================================
