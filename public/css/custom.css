@@ -97,7 +97,8 @@
    ============================================================================= */
 
 html,
-body {
+body,
+body.night {
     background-color: var(--bg-dark) !important;
 }
 
