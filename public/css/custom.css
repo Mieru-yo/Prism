@@ -325,6 +325,10 @@ h6 {
     right: 10px !important;
 }
 
+.status-bar, .status-bar .status-indicators > div {
+    border: none !important;
+}
+
 /* =============================================================================
    TOOLBAR & NAVIGATION
    ============================================================================= */
