@@ -22,7 +22,7 @@
     <% _.forEach(htmlWebpackPlugin.files.css, function(cssFile) { %><style><%= compilation.assets[cssFile.substr(htmlWebpackPlugin.files.publicPath.length)].source() %></style><% }); %>
 </head>
 
-<body translate="no">
+<body translate="no" class="night">
     {{{html}}}
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
         <div class="pull-right dropdown">
