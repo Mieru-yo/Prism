@@ -103,6 +103,10 @@ html, body, body.night {
     background: var(--bg-dark) !important;
 }
 
+.lead, .screenshot {
+    display: none !important
+}
+
 /* =============================================================================
    NIGHT MODE / DARK THEME
    ============================================================================= */
@@ -355,12 +359,12 @@ body.night .toolbar > .btn-toolbar > .btn-group > .btn:hover {
     color: var(--text-primary) !important;
 }
 
-.night .btn.focus,
+/* .night .btn.focus,
 .night .btn:focus,
 .night .btn:hover,
 .night .close {
     background: none !important;
-}
+} */
 
 /* Form Controls */
 .form-control {
