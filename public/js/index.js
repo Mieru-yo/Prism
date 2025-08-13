@@ -621,13 +621,13 @@ Visibility.change(function (e, state) {
 })
 
 // Font size functionality
-function initializeFontSize() {
+function initializeFontSize () {
   const savedFontSize = store.get('viewFontSize') || 16
   applyFontSize(savedFontSize)
   updateFontSizeDropdown(savedFontSize)
 }
 
-function applyFontSize(fontSize) {
+function applyFontSize (fontSize) {
   let styleElement = document.getElementById('custom-font-size-style')
   if (!styleElement) {
     styleElement = document.createElement('style')
@@ -642,12 +642,12 @@ function applyFontSize(fontSize) {
   `
 }
 
-function updateFontSizeDropdown(selectedSize) {
+function updateFontSizeDropdown (selectedSize) {
   $('#fontSizeDropdown li').removeClass('active')
   $(`#fontSizeDropdown li a[data-font-size="${selectedSize}"]`).parent().addClass('active')
 }
 
-function setFontSize(fontSize) {
+function setFontSize (fontSize) {
   store.set('viewFontSize', fontSize)
   applyFontSize(fontSize)
   updateFontSizeDropdown(fontSize)
@@ -707,7 +707,7 @@ $(document).ready(function () {
 
   initializeFontSize()
 
-  $('#fontSizeDropdown').on('click', 'a', function(e) {
+  $('#fontSizeDropdown').on('click', 'a', function (e) {
     e.preventDefault()
     e.stopPropagation()
     const fontSize = parseInt($(this).data('font-size'))
