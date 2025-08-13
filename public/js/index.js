@@ -651,7 +651,7 @@ function setFontSize (fontSize) {
   store.set('viewFontSize', fontSize)
   applyFontSize(fontSize)
   updateFontSizeDropdown(fontSize)
-  console.log(`Font size set to ${fontSize}px`)
+  console.debug(`Font size set to ${fontSize}px`)
 }
 
 // when page ready
