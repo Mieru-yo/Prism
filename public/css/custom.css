@@ -531,5 +531,5 @@ html body div.site-wrapper div.site-wrapper-inner div.cover-container div.mastfo
 #fontSizeDropdown li span {
     display: block !important;
     width: 100% !important;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
