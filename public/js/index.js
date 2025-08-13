@@ -707,7 +707,7 @@ $(document).ready(function () {
 
   initializeFontSize()
 
-  $('#fontSizeDropdown').on('click', 'a', function (e) {
+  $('#fontSizeDropdown').on('click', 'span', function (e) {
     e.preventDefault()
     e.stopPropagation()
     const fontSize = parseInt($(this).data('font-size'))
