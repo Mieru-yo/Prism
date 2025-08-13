@@ -620,24 +620,21 @@ Visibility.change(function (e, state) {
   updateTitleReminder()
 })
 
-
 // Font size functionality
 function initializeFontSize() {
-  // Get saved font size from localStorage (default to 16px)
   const savedFontSize = store.get('viewFontSize') || 16
   applyFontSize(savedFontSize)
   updateFontSizeDropdown(savedFontSize)
 }
 
 function applyFontSize(fontSize) {
-  // Create or update the style rule for markdown body
   let styleElement = document.getElementById('custom-font-size-style')
   if (!styleElement) {
     styleElement = document.createElement('style')
     styleElement.id = 'custom-font-size-style'
     document.head.appendChild(styleElement)
   }
-  
+
   styleElement.textContent = `
     .markdown-body {
       font-size: ${fontSize}px !important;
@@ -646,22 +643,15 @@ function applyFontSize(fontSize) {
 }
 
 function updateFontSizeDropdown(selectedSize) {
-  // Update dropdown to show current selection
   $('#fontSizeDropdown li').removeClass('active')
   $(`#fontSizeDropdown li a[data-font-size="${selectedSize}"]`).parent().addClass('active')
 }
 
 function setFontSize(fontSize) {
-  // Store in localStorage
   store.set('viewFontSize', fontSize)
-  
-  // Apply the font size
   applyFontSize(fontSize)
-  
-  // Update dropdown visual state
   updateFontSizeDropdown(fontSize)
 }
-
 
 // when page ready
 $(document).ready(function () {
