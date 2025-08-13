@@ -520,12 +520,12 @@ html body div.site-wrapper div.site-wrapper-inner div.cover-container div.mastfo
 
 #fontSizeSelector {
     background: none !important;
-    color: var(--text-muted) !important;
+    color: #777 !important;
 
 }
 
 #fontSizeSelector:hover {
-    color: var(--text-muted-hover) !important;
+    color: white !important;
 }
 
 #fontSizeDropdown li span {
@@ -533,3 +533,16 @@ html body div.site-wrapper div.site-wrapper-inner div.cover-container div.mastfo
     width: 100% !important;
     box-sizing: border-box !important;
 }
+
+.navbar-default .btn-link {
+    background: none !important;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    border-color: transparent !important;
+}
+
+.btn-group.open .dropdown-toggle {
+    box-shadow: none !important
+}
+
