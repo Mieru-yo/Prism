@@ -716,6 +716,14 @@ $(document).ready(function () {
     console.debug(`Font size set to ${fontSize}px`)
   })
 
+  // ADD THESE DEBUG LINES RIGHT HERE:
+  console.debug('=== FONT SIZE DEBUG ===')
+  console.debug('Dropdown exists:', $('#fontSizeDropdown').length)
+  console.debug('Li elements found:', $('#fontSizeDropdown li').length)
+  console.debug('Span elements found:', $('#fontSizeDropdown li span').length)
+  console.debug('First span data:', $('#fontSizeDropdown li span').first().data('font-size'))
+  console.debug('Dropdown HTML:', $('#fontSizeDropdown')[0])
+
   // showup
   $().showUp('.navbar', {
     upClass: 'navbar-hide',
