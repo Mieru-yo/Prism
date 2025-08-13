@@ -634,7 +634,6 @@ function applyFontSize (fontSize) {
     styleElement.id = 'custom-font-size-style'
     document.head.appendChild(styleElement)
   }
-
   styleElement.textContent = `
     .markdown-body {
       font-size: ${fontSize}px !important;
@@ -644,7 +643,7 @@ function applyFontSize (fontSize) {
 
 function updateFontSizeDropdown (selectedSize) {
   $('#fontSizeDropdown li').removeClass('active')
-  $(`#fontSizeDropdown li span[data-font-size="${selectedSize}"]`).parent().addClass('active')
+  $(`#fontSizeDropdown li [data-font-size="${selectedSize}"]`).parent().addClass('active')
 }
 
 function setFontSize (fontSize) {
@@ -653,7 +652,6 @@ function setFontSize (fontSize) {
   updateFontSizeDropdown(fontSize)
 }
 
-// when page ready
 $(document).ready(function () {
   // set global ajax timeout
   $.ajaxSetup({
@@ -662,25 +660,17 @@ $(document).ready(function () {
 
   idle.checkAway()
   checkResponsive()
-  // if in smaller screen, we don't need advanced scrollbar
-  let scrollbarStyle
-  if (visibleXS) {
-    scrollbarStyle = 'native'
-  } else {
-    scrollbarStyle = 'overlay'
-  }
+
+  let scrollbarStyle = visibleXS ? 'native' : 'overlay'
   if (scrollbarStyle !== editor.getOption('scrollbarStyle')) {
     editor.setOption('scrollbarStyle', scrollbarStyle)
     clearMap()
   }
   checkEditorStyle()
 
-  /* cache dom references */
   const $body = $('body')
 
-  /* we need this only on touch devices */
   if (isTouchDevice) {
-    /* bind events */
     $(document)
       .on('focus', 'textarea, input', function () {
         $body.addClass('fixfixed')
@@ -690,66 +680,44 @@ $(document).ready(function () {
       })
   }
 
-  // if (Cookies.get('nightMode') !== undefined) {
-  //   store.set('nightMode', Cookies.get('nightMode') === 'true')
-  //   Cookies.remove('nightMode')
-  // }
-
-  // // Re-enable nightmode
-  // if (store.get('nightMode') === true) {
-  //   $body.addClass('night')
-  //   ui.toolbar.night.addClass('active')
-  // }
-
   store.set('nightMode', true)
   $body.addClass('night')
   ui.toolbar.night.addClass('active')
 
   initializeFontSize()
 
-  $('#fontSizeDropdown').on('click', 'li span', function (e) {
-    console.debug('Font size change requested')
+  // robust binding: works even if dropdown is injected later
+  $(document).on('click', '#fontSizeDropdown [data-font-size]', function (e) {
+    console.info('Font size change requested INFO')
+    console.warn('Font size change requested WARN')
     e.preventDefault()
     e.stopPropagation()
-    const fontSize = parseInt($(this).data('font-size'))
+    const fontSize = parseInt($(this).data('font-size'), 10)
     setFontSize(fontSize)
-    console.debug(`Font size set to ${fontSize}px`)
+    console.info(`Font size set to ${fontSize}px`)
   })
-
-  // ADD THESE DEBUG LINES RIGHT HERE:
-  console.debug('=== FONT SIZE DEBUG ===')
-  console.debug('Dropdown exists:', $('#fontSizeDropdown').length)
-  console.debug('Li elements found:', $('#fontSizeDropdown li').length)
-  console.debug('Span elements found:', $('#fontSizeDropdown li span').length)
-  console.debug('First span data:', $('#fontSizeDropdown li span').first().data('font-size'))
-  console.debug('Dropdown HTML:', $('#fontSizeDropdown')[0])
 
   // showup
   $().showUp('.navbar', {
     upClass: 'navbar-hide',
     downClass: 'navbar-show'
   })
+
   // tooltip
   $('[data-toggle="tooltip"]').tooltip()
+
   // shortcuts
-  // allow on all tags
-  key.filter = function (e) {
-    return true
-  }
-  key('ctrl+alt+e', function (e) {
-    changeMode(modeType.edit)
-  })
-  key('ctrl+alt+v', function (e) {
-    changeMode(modeType.view)
-  })
-  key('ctrl+alt+b', function (e) {
-    changeMode(modeType.both)
-  })
+  key.filter = function (e) { return true }
+  key('ctrl+alt+e', function () { changeMode(modeType.edit) })
+  key('ctrl+alt+v', function () { changeMode(modeType.view) })
+  key('ctrl+alt+b', function () { changeMode(modeType.both) })
+
   // toggle-dropdown
   $(document).on('click', '.toggle-dropdown .dropdown-menu:not(#fontSizeDropdown)', function (e) {
     e.stopPropagation()
   })
 })
+
 // when page resize
 $(window).resize(function () {
   checkLayout()
