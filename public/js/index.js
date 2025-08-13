@@ -634,6 +634,7 @@ function applyFontSize (fontSize) {
     styleElement.id = 'custom-font-size-style'
     document.head.appendChild(styleElement)
   }
+
   styleElement.textContent = `
     .markdown-body {
       font-size: ${fontSize}px !important;
@@ -643,7 +644,7 @@ function applyFontSize (fontSize) {
 
 function updateFontSizeDropdown (selectedSize) {
   $('#fontSizeDropdown li').removeClass('active')
-  $(`#fontSizeDropdown li [data-font-size="${selectedSize}"]`).parent().addClass('active')
+  $(`#fontSizeDropdown li span[data-font-size="${selectedSize}"]`).parent().addClass('active')
 }
 
 function setFontSize (fontSize) {
@@ -652,6 +653,7 @@ function setFontSize (fontSize) {
   updateFontSizeDropdown(fontSize)
 }
 
+// when page ready
 $(document).ready(function () {
   // set global ajax timeout
   $.ajaxSetup({
@@ -661,7 +663,12 @@ $(document).ready(function () {
   idle.checkAway()
   checkResponsive()
 
-  let scrollbarStyle = visibleXS ? 'native' : 'overlay'
+  let scrollbarStyle
+  if (visibleXS) {
+    scrollbarStyle = 'native'
+  } else {
+    scrollbarStyle = 'overlay'
+  }
   if (scrollbarStyle !== editor.getOption('scrollbarStyle')) {
     editor.setOption('scrollbarStyle', scrollbarStyle)
     clearMap()
@@ -686,33 +693,29 @@ $(document).ready(function () {
 
   initializeFontSize()
 
-  // robust binding: works even if dropdown is injected later
-  $(document).on('click', '#fontSizeDropdown [data-font-size]', function (e) {
-    console.info('Font size change requested INFO')
+  // <-- THE ONLY CHANGE: robust click handler -->
+  $(document).on('click', '#fontSizeDropdown li span', function (e) {
+    console.debug('Font size change requested')
     console.warn('Font size change requested WARN')
     e.preventDefault()
     e.stopPropagation()
     const fontSize = parseInt($(this).data('font-size'), 10)
     setFontSize(fontSize)
-    console.info(`Font size set to ${fontSize}px`)
+    console.debug(`Font size set to ${fontSize}px`)
   })
 
-  // showup
   $().showUp('.navbar', {
     upClass: 'navbar-hide',
     downClass: 'navbar-show'
   })
 
-  // tooltip
   $('[data-toggle="tooltip"]').tooltip()
 
-  // shortcuts
   key.filter = function (e) { return true }
   key('ctrl+alt+e', function () { changeMode(modeType.edit) })
   key('ctrl+alt+v', function () { changeMode(modeType.view) })
   key('ctrl+alt+b', function () { changeMode(modeType.both) })
 
-  // toggle-dropdown
   $(document).on('click', '.toggle-dropdown .dropdown-menu:not(#fontSizeDropdown)', function (e) {
     e.stopPropagation()
   })
