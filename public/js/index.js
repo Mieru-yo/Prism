@@ -644,14 +644,13 @@ function applyFontSize (fontSize) {
 
 function updateFontSizeDropdown (selectedSize) {
   $('#fontSizeDropdown li').removeClass('active')
-  $(`#fontSizeDropdown li a[data-font-size="${selectedSize}"]`).parent().addClass('active')
+  $(`#fontSizeDropdown li span[data-font-size="${selectedSize}"]`).parent().addClass('active')
 }
 
 function setFontSize (fontSize) {
   store.set('viewFontSize', fontSize)
   applyFontSize(fontSize)
   updateFontSizeDropdown(fontSize)
-  console.debug(`Font size set to ${fontSize}px`)
 }
 
 // when page ready
@@ -713,6 +712,7 @@ $(document).ready(function () {
     e.stopPropagation()
     const fontSize = parseInt($(this).data('font-size'))
     setFontSize(fontSize)
+    console.debug(`Font size set to ${fontSize}px`)
   })
 
   // showup
