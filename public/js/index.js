@@ -705,16 +705,6 @@ $(document).ready(function () {
   $body.addClass('night')
   ui.toolbar.night.addClass('active')
 
-  initializeFontSize()
-
-  $('#fontSizeDropdown').on('click', 'span', function (e) {
-    e.preventDefault()
-    e.stopPropagation()
-    const fontSize = parseInt($(this).data('font-size'))
-    setFontSize(fontSize)
-    console.debug(`Font size set to ${fontSize}px`)
-  })
-
   // showup
   $().showUp('.navbar', {
     upClass: 'navbar-hide',
@@ -739,6 +729,17 @@ $(document).ready(function () {
   // toggle-dropdown
   $(document).on('click', '.toggle-dropdown .dropdown-menu', function (e) {
     e.stopPropagation()
+  })
+
+  initializeFontSize()
+
+  $('#fontSizeDropdown').on('click', 'li span', function (e) {
+    console.debug('Font size change requested')
+    e.preventDefault()
+    e.stopPropagation()
+    const fontSize = parseInt($(this).data('font-size'))
+    setFontSize(fontSize)
+    console.debug(`Font size set to ${fontSize}px`)
   })
 })
 // when page resize

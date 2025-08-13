@@ -508,3 +508,22 @@ html body div.site-wrapper div.site-wrapper-inner div.cover-container div.mastfo
     line-height: 2 !important;
 }
 
+#fontSizeDropdown li:hover{
+    background:#ffffff14 !important;
+    cursor: pointer !important;
+}
+
+#fontSizeDropdown li{
+    border-radius: 5px !important;
+    padding: 0 5px !important;
+}
+
+#fontSizeSelector {
+    background: none !important;
+    color: var(--text-muted) !important;
+
+}
+
+#fontSizeSelector:hover {
+    color: var(--text-muted-hover) !important;
+}
